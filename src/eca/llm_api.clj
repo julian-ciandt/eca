@@ -189,7 +189,7 @@
                             "openai-chat" llm-providers.openai-chat/chat-completion!
                             (on-error {:message (format "Unknown model %s for provider %s" (:api provider-config) provider)}))
               url-relative-path (:completionUrlRelativePath provider-config)
-              extra-headers (:extra-headers provider-config)
+              extra-headers (into {} (map (fn [[k v]] [(name k) v])) (:extra-headers provider-config))
               think-tag-start (:thinkTagStart provider-config)
               think-tag-end (:thinkTagEnd provider-config)]
           (provider-fn
